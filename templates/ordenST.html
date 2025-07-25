@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orden de Servicio Técnico</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <!-- fonts style -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700|Roboto:400,700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom styles for this template -->
+    <!-- responsive style -->
+    <link href="{{ url_for('firmas.static', filename='css/formulario.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('firmas.static', filename='css/pattern_lock.css') }}" rel="stylesheet" />
+
+</head>
+
+<body>
+    <!-- Formulario de entrada de datos -->
+    <div id="alertContainer"></div>
+
+    <div class="formulario-comodato">
+        <div class="form-header">
+            <h1>Orden de Servicio Técnico</h1>
+            <p>Complete el formulario para continuar</p>
+        </div>
+        <div class="form-content">
+            <form id="ordenSTForm">
+                <div class="form-section">
+                    <div class="section-title">
+                        <span class="icon"><i class="fas fa-user"></i></span>
+                        Información del Técnico
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="responsable">Responsable <span class="required">*</span></label>
+                            <input type="text" id="responsable" name="responsable" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="sede">Sede <span class="required">*</span></label>
+                            <div class="pills-container">
+                                <label class="pill">
+                                    <input type="radio" name="sede" value="Medellín" required>
+                                    <span>Medellín</span>
+                                </label>
+                                <label class="pill">
+                                    <input type="radio" name="sede" value="Bogotá">
+                                    <span>Bogotá</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-section">
+                    <div class="section-title">
+                        <span class="icon"><i class="fas fa-mobile-alt"></i></span>
+                        Información del Dispositivo
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="marca">Marca <span class="required">*</span></label>
+                            <input type="text" id="marca" name="marca" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="modelo">Modelo <span class="required">*</span></label>
+                            <input type="text" id="modelo" name="modelo" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="imei">IMEI/Serial <span class="required">*</span></label>
+                            <input type="text" id="imei" name="imei" required>
+                        </div>
+                        <div class="form-group">
+                            <label>¿Prende? <span class="required">*</span></label>
+                            <div class="pills-container">
+                                <label class="pill">
+                                    <input type="radio" name="prende" value="true" required>
+                                    <span>Sí</span>
+                                </label>
+                                <label class="pill">
+                                    <input type="radio" name="prende" value="false">
+                                    <span>No</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>¿Tiene batería? <span class="required">*</span></label>
+                            <div class="pills-container">
+                                <label class="pill">
+                                    <input type="radio" name="bateria" value="true" required>
+                                    <span>Sí</span>
+                                </label>
+                                <label class="pill">
+                                    <input type="radio" name="bateria" value="false">
+                                    <span>No</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="porcentajeBateria">Porcentaje de batería</label>
+                            <input type="number" id="porcentajeBateria" name="porcentajeBateria" min="0" max="100">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-section">
+                    <div class="section-title">
+                        <span class="icon"><i class="fas fa-lock"></i></span>
+                        Información de Seguridad
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="codigoSeguridad">Código de seguridad</label>
+                            <input type="text" id="codigoSeguridad" name="codigoSeguridad">
+                        </div>
+                        <div class="form-group">
+                            <label for="correoVinculado">Correo vinculado</label>
+                            <input type="email" id="correoVinculado" name="correoVinculado">
+                        </div>
+                        <div class="form-group">
+                            <label for="patron">Patrón de desbloqueo</label>
+                            <div class="pattern-container">
+                                <input type="hidden" id="patron" name="patron">
+                                <button type="button" id="openPatternModal" class="btn-secondary">Establecer patrón</button>
+                                <div id="patternStatus" class="pattern-status"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="contraseña">Contraseña</label>
+                            <input type="text" id="contraseña" name="contraseña">
+                        </div>
+                    </div>
+                    <div class="documents-section">
+                        <div class="documents-header">
+                            <h3 class="documents-title"><i class="fas fa-folder"></i> Documentos y Fotos</h3>
+                            <div class="upload-actions">
+                                <button type="button" class="upload-btn camera" onclick="openDocumentCamera()">
+                                    <i class="fas fa-camera"></i> Tomar Foto
+                                </button>
+                                <button type="button" class="upload-btn file"
+                                    onclick="document.getElementById('fileInput').click()">
+                                    <i class="fas fa-file-upload"></i> Subir Archivo
+                                </button>
+                                <input type="file" id="fileInput" multiple accept="image/*" style="display: none;"
+                                    onchange="handleFileUpload(event)">
+                            </div>
+                        </div>
+
+                        <div id="documentsGrid" class="documents-grid">
+                            <!-- Aquí se mostrarán los documentos adjuntos -->
+                        </div>
+
+                        <div class="documents-counter">
+                            <span id="documentsCounter">0 documentos adjuntos</span>
+                        </div>
+                    </div>
+
+                    <!-- Modal de cámara -->
+                    <div id="cameraModal" class="camera-modal">
+                        <div class="camera-container">
+                            <h3><i class="fas fa-camera"></i> Capturar Documento</h3>
+                            <div class="camera-preview">
+                                <video id="cameraVideo" class="camera-video" autoplay playsinline></video>
+                                <canvas id="captureCanvas" class="hidden"></canvas>
+                            </div>
+                            <div class="camera-controls">
+                                <button class="camera-btn capture" type="button" onclick="captureDocument()">
+                                    <i class="fas fa-camera"></i> Capturar
+                                </button>
+                                <button class="camera-btn switch" type="button" onclick="switchCamera()">
+                                    <i class="fas fa-sync-alt"></i> Cambiar Cámara
+                                </button>
+                                <button class="camera-btn close" type="button" onclick="closeDocumentCamera()">
+                                    <i class="fas fa-times"></i> Cerrar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-section">
+                    <div class="section-title1">
+                        <span class="icon"><i class="fas fa-signature"></i></span>
+                        Firma del Cliente
+                    </div>
+                    <div style="display: flex; flex-direction: column; align-items: center;">
+                        <button type="button" class="btn-primary" onclick="abrirModalFirma()">Firmar</button>
+                        <input type="hidden" id="firmaBase64" name="firmaBase64">
+                        <div id="firmaPreview" style="margin-top:10px;"></div>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button type="submit" class="btn-primary">Generar Orden</button>
+                    <button type="button" class="btn-secondary" onclick="resetForm()">Limpiar Formulario</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de Firma -->
+    <div id="modalFirma"
+        style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.4); z-index:9999; align-items:center; justify-content:center;">
+        <div
+            style="background:#fff; padding:24px; border-radius:10px; box-shadow:0 4px 18px rgba(0,0,0,0.15); display:flex; flex-direction:column; align-items:center; min-width:320px;">
+            <h3 style="margin-bottom:12px;">Firma del Cliente</h3>
+            <canvas id="firmaCanvas" width="350" height="120"
+                style="border:1.5px solid #336699; border-radius:8px; background:#fafcff;"></canvas>
+            <div style="margin-top:10px;">
+                <button type="button" class="btn-secondary" onclick="limpiarFirma()">Limpiar</button>
+                <button type="button" class="btn-primary" onclick="guardarFirma()">Guardar Firma</button>
+                <button type="button" class="btn-secondary" onclick="cerrarModalFirma()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Patrón -->
+    <div id="patternModal" class="pattern-modal">
+        <div class="pattern-modal-content">
+            <span id="closePatternModal" class="close-pattern">&times;</span>
+            <h3>Establezca el patrón de desbloqueo</h3>
+            <div id="patternContainer" class="pattern-lock-container"></div>
+            <p class="pattern-instructions">Dibuje un patrón conectando al menos 4 puntos</p>
+        </div>
+    </div>
+
+    <!-- Orden generada -->
+    <div class="orden-container" id="ordenGenerada">
+        <div class="header">
+            <div class="logo-section">
+                <div class="logo-box">
+                    <img src="{{ url_for('firmas.static', filename='images/logo.png') }}" alt="Micelu.co Logo">
+                </div>
+                <div class="company-info">
+                    <strong>Micelu.co</strong><br>
+                    Venta y reparación de celulares<br>
+                    <i class="fas fa-phone"></i> 305 333 3336<br>
+                    <i class="fas fa-envelope"></i> miceluace@gmail.com
+                </div>
+            </div>
+
+            <div class="title-box">
+                <div class="title">ORDEN DE SERVICIO TÉCNICO</div>
+                <div class="subtitle">Sede <span id="sedeDisplay"></span></div>
+            </div>
+
+            <div class="number-section">
+                <div class="number-box">
+                    N° <input type="text" class="input-field" id="numeroOrden" placeholder="0001"
+                        style="border:none; background:transparent; color:#4A90E2; font-weight:600;">
+                </div>
+                <div class="date-row">
+                    <div class="date-box" id="day">D</div>
+                    <div class="date-box" id="month">M</div>
+                    <div class="date-box" id="year">A</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="device-info-section">
+                <h3>INFORMACIÓN DEL DISPOSITIVO</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <label>Marca:</label>
+                        <span id="marcaDisplay"></span>
+                    </div>
+                    <div class="info-item">
+                        <label>Modelo:</label>
+                        <span id="modeloDisplay"></span>
+                    </div>
+                    <div class="info-item">
+                        <label>IMEI/Serial:</label>
+                        <span id="imeiDisplay"></span>
+                    </div>
+                    <div class="info-item">
+                        <label>¿Prende?:</label>
+                        <span id="prendeDisplay"></span>
+                    </div>
+                    <div class="info-item">
+                        <label>¿Tiene batería?:</label>
+                        <span id="bateriaDisplay"></span>
+                    </div>
+                    <div class="info-item">
+                        <label>% Batería:</label>
+                        <span id="porcentajeBateriaDisplay"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="security-info-section">
+                <h3>INFORMACIÓN DE SEGURIDAD</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <label>Código de seguridad:</label>
+                        <span id="codigoSeguridadDisplay"></span>
+                    </div>
+                    <div class="info-item">
+                        <label>Correo vinculado:</label>
+                        <span id="correoVinculadoDisplay"></span>
+                    </div>
+                    <div class="info-item">
+                        <label>Patrón:</label>
+                        <span id="patronDisplay"></span>
+                    </div>
+                    <div class="info-item">
+                        <label>Contraseña:</label>
+                        <span id="contraseñaDisplay"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="terms-section">
+                <p>
+                    El cliente autoriza a Micelu.co para realizar el diagnóstico y reparación del equipo descrito anteriormente. 
+                    Micelu.co no se hace responsable por la pérdida de información almacenada en el dispositivo. 
+                    El cliente acepta que ha sido informado sobre el procedimiento y los riesgos asociados con la reparación.
+                </p>
+            </div>
+
+            <div class="date-location">
+                Fecha: <span id="diaActual">día</span> de <span id="mesActual">mes</span> de <span id="añoActual">año</span>
+            </div>
+        </div>
+
+        <div class="signature-section">
+            <div class="signature-box">
+                <div class="signature-title">CLIENTE</div>
+                <div class="signature-field">
+                    <label>NOMBRE:</label>
+                    <input type="text" class="input-field" id="nombreCliente">
+                </div>
+                <div class="signature-field">
+                    <label>IDENTIFICACIÓN:</label>
+                    <input type="text" class="input-field" id="identificacionCliente">
+                </div>
+                <div class="signature-field">
+                    <label>TELÉFONO:</label>
+                    <input type="text" class="input-field" id="telefonoCliente">
+                </div>
+                <div class="signature-area">
+                    <img id="firmaClienteImg"
+                        style="max-width:200px; border:1px solid #ccc; border-radius:6px; display:none;">
+                </div>
+            </div>
+
+            <div class="signature-box">
+                <div class="signature-title">TÉCNICO</div>
+                <div class="signature-field">
+                    <label>NOMBRE:</label>
+                    <span id="responsableDisplay"></span>
+                </div>
+                <div class="signature-field">
+                    <label>SEDE:</label>
+                    <span id="sedeResponsableDisplay"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="contract-actions">
+            <button class="btn-secondary" onclick="editForm()"><i class="fas fa-edit"></i> Editar Datos</button>
+            <button class="btn-primary" onclick="saveOrderAsDocument()"><i class="fas fa-save"></i> Guardar Orden</button>
+            <button class="btn-secondary" onclick="newOrder()"><i class="fas fa-file"></i> Nueva Orden</button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/signature_pad/1.5.3/signature_pad.min.js"></script>
+    <script src="{{ url_for('firmas.static', filename='js/simple_pattern_lock.js') }}"></script>
+    <script src="{{ url_for('firmas.static', filename='js/ordenST.js') }}"></script>
+</body>
+
+</html>

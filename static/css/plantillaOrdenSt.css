@@ -1,0 +1,675 @@
+/**
+ * Estilos para la Plantilla de Orden de Servicio Técnico
+ * Diseño basado en la imagen de referencia
+ */
+
+/* ==========================================================================
+   VARIABLES Y CONFIGURACIÓN BASE
+   ========================================================================== */
+:root {
+    --primary-blue: #0078d7;
+    --secondary-blue: #e3f2fd;
+    --border-color: #000;
+    --text-color: #000;
+    --bg-white: #fff;
+    --bg-gray: #f8f9fa;
+    --header-bg: #e3f2fd;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    line-height: 1.2;
+    color: var(--text-color);
+    background-color: var(--bg-gray);
+}
+
+/* ==========================================================================
+   CONTENEDOR PRINCIPAL
+   ========================================================================== */
+.orden-st-container {
+    max-width: 210mm;
+    margin: 8px auto;
+    background: var(--bg-white);
+    padding: 12px;
+    box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    border: 1px solid var(--border-color);
+}
+
+/* ==========================================================================
+   ENCABEZADO
+   ========================================================================== */
+.orden-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo {
+    width: 50px;
+    height: auto;
+}
+
+.logo-text {
+    font-size: 10px;
+    line-height: 1.2;
+}
+
+.company-name {
+    font-weight: bold;
+    font-size: 12px;
+    color: var(--primary-blue);
+}
+
+.company-desc {
+    font-size: 9px;
+    color: var(--text-color);
+}
+
+.orden-title {
+    text-align: center;
+    flex-grow: 1;
+    margin: 0 20px;
+}
+
+.title-text {
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--text-color);
+    margin-bottom: 5px;
+}
+
+.orden-number {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--primary-blue);
+    border: 2px solid var(--primary-blue);
+    padding: 8px 15px;
+    display: inline-block;
+    min-width: 80px;
+}
+
+/* ==========================================================================
+   INFORMACIÓN DE CONTACTO
+   ========================================================================== */
+.contact-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.contact-details {
+    font-size: 11px;
+    line-height: 1.3;
+}
+
+.date-table {
+    border-collapse: collapse;
+    font-size: 10px;
+}
+
+.date-table td {
+    border: 1px solid var(--border-color);
+    padding: 3px 6px;
+    text-align: center;
+    min-width: 35px;
+}
+
+.date-label {
+    text-align: left !important;
+    font-weight: bold;
+    background-color: var(--secondary-blue);
+}
+
+.date-header {
+    font-weight: bold;
+    background-color: var(--secondary-blue);
+}
+
+.date-value {
+    background-color: var(--bg-white);
+}
+
+/* ==========================================================================
+   SECCIÓN DE UBICACIÓN
+   ========================================================================== */
+.location-section {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding: 6px 0;
+}
+
+.location-group {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.location-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.radio-circle {
+    width: 12px;
+    height: 12px;
+    border: 2px solid var(--border-color);
+    border-radius: 50%;
+    background-color: var(--bg-white);
+}
+
+.radio-circle.filled {
+    background-color: var(--primary-blue);
+    border-color: var(--primary-blue);
+}
+
+/* ==========================================================================
+   TABLA PRINCIPAL DE DATOS
+   ========================================================================== */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 15px;
+    font-size: 11px;
+}
+
+.data-table td {
+    border: 1px solid var(--border-color);
+    padding: 4px 6px;
+    vertical-align: top;
+}
+
+.field-label {
+    font-weight: bold;
+    background-color: var(--secondary-blue);
+    width: 30%;
+    text-align: left;
+    white-space: nowrap;
+    font-size: 10px;
+}
+
+.field-value {
+    background-color: var(--bg-white);
+    min-height: 16px;
+    font-size: 10px;
+}
+
+.section-header {
+    background-color: var(--primary-blue);
+    color: var(--bg-white);
+    font-weight: bold;
+    text-align: center;
+    padding: 8px;
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+.diagnostic-field {
+    height: 60px;
+    vertical-align: top;
+}
+
+/* ==========================================================================
+   CHECKBOXES Y ELEMENTOS INTERACTIVOS
+   ========================================================================== */
+.checkbox-group {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 9px;
+}
+
+.checkbox {
+    width: 10px;
+    height: 10px;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-white);
+    position: relative;
+    border-radius: 50%;
+}
+
+.checkbox.checked {
+    background-color: var(--primary-blue);
+}
+
+.checkbox.checked::after {
+    content: '✓';
+    color: var(--bg-white);
+    position: absolute;
+    top: -3px;
+    left: 1px;
+    font-size: 8px;
+    font-weight: bold;
+}
+
+/* ==========================================================================
+   PATRÓN DE DESBLOQUEO
+   ========================================================================== */
+.patron-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.patron-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    width: 80px;
+    height: 80px;
+    border: 1px solid var(--border-color);
+    padding: 8px;
+    background-color: var(--bg-white);
+}
+
+.patron-dot {
+    width: 12px;
+    height: 12px;
+    border: 2px solid var(--border-color);
+    border-radius: 50%;
+    background-color: var(--bg-white);
+    margin: auto;
+}
+
+.patron-dot.active {
+    background-color: var(--primary-blue);
+    border-color: var(--primary-blue);
+}
+
+/* ==========================================================================
+   SECCIÓN DE IMÁGENES DEL EQUIPO
+   ========================================================================== */
+.images-section {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.images-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+    padding: 8px;
+}
+
+.image-item {
+    text-align: center;
+    border: 1px solid var(--border-color);
+    border-radius: 3px;
+    padding: 6px;
+    background-color: var(--bg-white);
+}
+
+.equipment-image {
+    width: 100%;
+    max-width: 140px;
+    height: 90px;
+    object-fit: cover;
+    border: 1px solid var(--border-color);
+    border-radius: 2px;
+}
+
+.image-caption {
+    margin-top: 5px;
+    font-size: 10px;
+    color: var(--text-color);
+    font-weight: bold;
+}
+
+/* ==========================================================================
+   SECCIÓN DE FIRMAS
+   ========================================================================== */
+.signature-section {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    gap: 20px;
+}
+
+.signature-container {
+    text-align: center;
+    flex: 1;
+}
+
+.signature-box {
+    width: 180px;
+    height: 60px;
+    border: 1px solid var(--border-color);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg-white);
+}
+
+.signature-image {
+    max-width: 180px;
+    max-height: 70px;
+    object-fit: contain;
+}
+
+.empty-signature {
+    background-color: var(--bg-gray);
+}
+
+.signature-line {
+    margin-top: 5px;
+    border-top: 1px solid var(--border-color);
+    width: 200px;
+    text-align: center;
+    font-size: 10px;
+    padding-top: 3px;
+    font-weight: bold;
+}
+
+/* ==========================================================================
+   LÍNEA DE PIE
+   ========================================================================== */
+.footer-line {
+    margin-top: 30px;
+    border-top: 2px dashed var(--border-color);
+    padding-top: 10px;
+    text-align: center;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+/* ==========================================================================
+   ESTILOS PARA IMPRESIÓN
+   ========================================================================== */
+@media print {
+    .orden-st-container {
+        max-width: 100%;
+        margin: 0;
+        padding: 8px;
+        box-shadow: none;
+        border: none;
+    }
+    
+    .action-buttons {
+        display: none;
+    }
+    
+    .data-table {
+        font-size: 9px;
+    }
+    
+    .field-label,
+    .field-value {
+        font-size: 9px;
+    }
+    
+    .checkbox-item {
+        font-size: 8px;
+    }
+    
+    .images-section {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    
+    .equipment-image {
+        height: 70px;
+    }
+    
+    .signature-section {
+        margin-top: 15px;
+    }
+    
+    .signature-box {
+        height: 50px;
+    }
+}
+
+/* ==========================================================================
+   BOTONES DE ACCIÓN
+   ========================================================================== */
+.action-buttons {
+    margin-top: 30px;
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    padding: 20px 0;
+    border-top: 2px solid var(--border-color);
+}
+
+.action-btn {
+    background-color: var(--primary-blue);
+    color: var(--bg-white);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    min-width: 120px;
+    justify-content: center;
+}
+
+.action-btn:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
+
+.action-btn:active {
+    transform: translateY(0);
+}
+
+.action-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.pdf-btn {
+    background-color: #dc3545;
+}
+
+.cloud-btn {
+    background-color: #28a745;
+}
+
+.print-btn {
+    background-color: var(--primary-blue);
+}
+
+/* ==========================================================================
+   ESTILOS PARA IMPRESIÓN
+   ========================================================================== */
+@media print {
+    body {
+        background: var(--bg-white);
+        margin: 0;
+        padding: 0;
+    }
+    
+    .orden-st-container {
+        box-shadow: none;
+        border: none;
+        margin: 0;
+        padding: 15px;
+        max-width: none;
+    }
+    
+    .action-buttons {
+        display: none !important;
+    }
+    
+    .section-header {
+        background-color: var(--primary-blue) !important;
+        color: var(--bg-white) !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+    
+    .radio-circle.filled {
+        background-color: var(--primary-blue) !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+    
+    .checkbox.checked {
+        background-color: var(--primary-blue) !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+    
+    .patron-dot.active {
+        background-color: var(--primary-blue) !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+    
+    .orden-number {
+        border-color: var(--primary-blue) !important;
+        color: var(--primary-blue) !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+    
+    .company-name {
+        color: var(--primary-blue) !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+    
+    .field-label {
+        background-color: var(--secondary-blue) !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+    
+    .date-label, .date-header {
+        background-color: var(--secondary-blue) !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+    
+    .equipment-image {
+        max-height: 80px;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+    
+    .images-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 10px;
+    }
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN
+   ========================================================================== */
+@media (max-width: 768px) {
+    .orden-st-container {
+        margin: 10px;
+        padding: 15px;
+    }
+    
+    .orden-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+    
+    .contact-info {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    
+    .location-section {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+    
+    .signature-section {
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+    }
+    
+    .images-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .action-btn {
+        width: 100%;
+        max-width: 200px;
+    }
+    
+    .data-table {
+        font-size: 10px;
+    }
+    
+    .data-table td {
+        padding: 4px 6px;
+    }
+}
+
+/* ==========================================================================
+   ANIMACIONES
+   ========================================================================== */
+.orden-st-container {
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ==========================================================================
+   UTILIDADES
+   ========================================================================== */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+.font-bold { font-weight: bold; }
+.hidden { display: none; }
+.visible { display: block; } 

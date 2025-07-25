@@ -1,0 +1,433 @@
+<style>
+    /* Estructura y posición del modal */
+#entregaProductoModal .modal-dialog {
+    max-width: 900px;
+    margin: 1rem auto;
+}
+
+#entregaProductoModal .modal-content {
+    background-color: #ffffff;
+    padding: 24px;
+    border-radius: 12px;
+    border: none;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Fondo del modal y z-index correctos */
+.modal-backdrop {
+    z-index: 1040;
+}
+
+#entregaProductoModal {
+    z-index: 1050;
+}
+
+/* Header del modal */
+#entregaProductoModal .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 0 20px 0;
+    border-bottom: 2px solid #e9ecef;
+    margin-bottom: 24px;
+}
+
+#entregaProductoModal .modal-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+}
+
+#entregaProductoModal .btn-close {
+    background: #6c757d;
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#entregaProductoModal .btn-close:hover {
+    background: #545b62;
+}
+
+/* Contenido principal */
+#entregaProductoModal .container {
+    max-width: 100%;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #ffffff;
+}
+
+/* Secciones del formulario */
+#entregaProductoModal .section {
+    margin-bottom: 24px;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 20px;
+    background-color: #fefefe;
+}
+
+#entregaProductoModal .section-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #4285f4;
+}
+
+/* Grid para campos en columnas */
+#entregaProductoModal .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+#entregaProductoModal .form-grid.single-column {
+    grid-template-columns: 1fr;
+}
+
+#entregaProductoModal .form-field {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Etiquetas */
+#entregaProductoModal .form-label {
+    font-weight: 500;
+    color: #333;
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+
+/* Campos de entrada */
+#entregaProductoModal .form-input input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: border-color 0.15s ease-in-out;
+    box-sizing: border-box;
+}
+
+#entregaProductoModal .form-input input:focus {
+    outline: none;
+    border-color: #4285f4;
+    box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.1);
+}
+
+#entregaProductoModal .form-input input[readonly] {
+    background-color: #f8f9fa;
+    cursor: not-allowed;
+}
+
+/* Notas */
+#entregaProductoModal .important-note {
+    background-color: #fff3cd;
+    border: 1px solid #ffeaa7;
+    border-radius: 6px;
+    padding: 12px;
+    margin: 16px 0;
+    font-size: 13px;
+    font-weight: 500;
+    color: #856404;
+    text-align: center;
+}
+
+#entregaProductoModal .attention-note {
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: 6px;
+    padding: 12px;
+    margin: 16px 0;
+    font-size: 12px;
+    color: #721c24;
+    line-height: 1.4;
+}
+
+/* Área de firma */
+#entregaProductoModal #firmaPreviewModal {
+    border: 2px dashed #4285f4;
+    min-height: 80px;
+    padding: 12px;
+    background-color: #f8f9fa;
+    border-radius: 6px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6c757d;
+    font-style: italic;
+}
+
+/* Documentos adjuntos */
+#entregaProductoModal #documentosInfo {
+    border: 2px dashed #28a745;
+    min-height: 80px;
+    padding: 12px;
+    background-color: #f8f9fa;
+    border-radius: 6px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6c757d;
+    font-style: italic;
+}
+
+/* Botones */
+#entregaProductoModal .btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.15s ease-in-out;
+    margin-right: 12px;
+}
+
+#entregaProductoModal .btn-primary {
+    background-color: #4285f4;
+    color: white;
+}
+
+#entregaProductoModal .btn-primary:hover {
+    background-color: #3367d6;
+}
+
+#entregaProductoModal .btn-secondary {
+    background-color: #6c757d;
+    color: white;
+}
+
+#entregaProductoModal .btn-secondary:hover {
+    background-color: #545b62;
+}
+
+#entregaProductoModal .button-group {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+/* Responsive para tablets */
+@media (max-width: 768px) {
+    #entregaProductoModal .modal-dialog {
+        margin: 0.5rem;
+        max-width: calc(100% - 1rem);
+    }
+
+    #entregaProductoModal .modal-content {
+        padding: 16px;
+    }
+
+    #entregaProductoModal .form-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    #entregaProductoModal .section {
+        padding: 16px;
+    }
+
+    #entregaProductoModal .modal-title {
+        font-size: 18px;
+    }
+
+    #entregaProductoModal .button-group {
+        flex-direction: column;
+    }
+
+    #entregaProductoModal .btn {
+        margin-right: 0;
+        margin-bottom: 8px;
+    }
+}
+
+/* Responsive para móviles */
+@media (max-width: 480px) {
+    #entregaProductoModal .modal-dialog {
+        margin: 0.25rem;
+        max-width: calc(100% - 0.5rem);
+    }
+
+    #entregaProductoModal .modal-content {
+        padding: 12px;
+    }
+
+    #entregaProductoModal .section {
+        padding: 12px;
+    }
+
+    #entregaProductoModal #firmaPreviewModal {
+        min-height: 100px;
+    }
+}
+</style>
+
+<form id="entregaProductoForm">
+    <div class="modal-header">
+        <h5 class="modal-title">RECIBO DE ENTREGA DE PRODUCTO MICELU.CO</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal">×</button>
+    </div>
+    
+    <div class="container">
+        <div class="section">
+            <div class="section-title">1. DATOS DE QUIEN RECIBE EL ARTÍCULO</div>
+            
+            <div class="form-grid">
+                <div class="form-field">
+                    <label class="form-label">Nombre completo:</label>
+                    <div class="form-input">
+                        <input type="text" name="nombreCompleto">
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="form-label">Email:</label>
+                    <div class="form-input">
+                        <input type="email" name="email">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-grid">
+                <div class="form-field">
+                    <label class="form-label">Número de documento:</label>
+                    <div class="form-input">
+                        <input type="text" name="cedula">
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="form-label">Teléfono:</label>
+                    <div class="form-input">
+                        <input type="text" name="telefono">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-grid single-column">
+                <div class="form-field">
+                    <label class="form-label">Dirección de entrega:</label>
+                    <div class="form-input">
+                        <input type="text" name="direccion">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">2. INFORMACIÓN DEL PRODUCTO</div>
+            
+            <div class="form-grid">
+                <div class="form-field">
+                    <label class="form-label">Artículo:</label>
+                    <div class="form-input">
+                        <input type="text" name="descripcionBienes">
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="form-label">Número de contrato:</label>
+                    <div class="form-input">
+                        <input type="text" name="numeroContrato">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-grid">
+                <div class="form-field">
+                    <label class="form-label">Valor del producto:</label>
+                    <div class="form-input">
+                        <input type="text" name="valorBienes">
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="form-label">Duración (días):</label>
+                    <div class="form-input">
+                        <input type="text" name="duracionDias">
+                    </div>
+                </div>
+            </div>
+
+            <div class="important-note">
+                IMPORTANTE: SIEMPRE CORROBORE NÚMERO DE DOCUMENTO DE IDENTIDAD Y FIRMA DE QUIEN RETIRA
+            </div>
+
+            <div class="form-grid">
+                <div class="form-field">
+                    <label class="form-label">Comprador:</label>
+                    <div class="form-input">
+                        <input type="text" name="nombreCompleto" readonly>
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="form-label">Vendedor/Representante Legal:</label>
+                    <div class="form-input">
+                        <input type="text" name="representanteLegal">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-grid">
+                <div class="form-field">
+                    <label class="form-label">Ciudad:</label>
+                    <div class="form-input">
+                        <input type="text" name="ciudad">
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="form-label">Lugar y fecha:</label>
+                    <div class="form-input">
+                        <input type="text" name="lugar_fecha" id="lugarFecha">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">3. FIRMA Y DOCUMENTOS</div>
+            
+            <div class="form-grid">
+                <div class="form-field">
+                    <label class="form-label">Firma de quien retira:</label>
+                    <div class="form-input">
+                        <div id="firmaPreviewModal">
+                            <em>La firma del formulario principal aparecerá aquí</em>
+                        </div>
+                        <input type="hidden" name="firmaBase64">
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="form-label">Documentos adjuntos:</label>
+                    <div class="form-input">
+                        <div id="documentosInfo">
+                            <em>Información de documentos del formulario principal</em>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="attention-note">
+                ATENCIÓN: en caso de contracargo por parte del titular de la tarjeta, MiCelu.Co presentará este documento, pudiendo inclusive utilizarlo en eventuales medidas que se hagan necesarias para el ejercicio de sus derechos
+            </div>
+        </div>
+
+        <div class="button-group">
+            <button type="submit" class="btn btn-primary">Agregar Formulario</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        </div>
+    </div>
+</form>

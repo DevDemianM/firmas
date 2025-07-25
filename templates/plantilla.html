@@ -1,0 +1,71 @@
+{% extends 'base_firmas.html' %}
+{% block title %}Plantillas de Firmas Electrónicas{% endblock %}
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ url_for('firmas.static', filename='css/plantilla_firmas.css') }}">
+{% endblock %}
+{% block content %}
+<div class="plantillas-container">
+    <h2 class="plantillas-title">Plantillas de Firmas Electrónicas</h2>
+    <div class="plantillas-grid">
+        <!-- Tarjeta 1: Orden ST -->
+        <div class="card plantilla-card">
+            <div class="card-header">
+                <span class="card-icon"><i class="fas fa-tools"></i></span>
+                <span class="card-title">Orden ST</span>
+            </div>
+            <div class="card-body">
+                <p class="card-desc">Plantilla especializada para la gestión y firma de Ordenes de Servicio Técnico (ST).</p>
+            </div>
+            <div class="card-footer">
+                <button class="btn-ver">Ver</button>
+                <a href="{{ url_for('firmas.plantillas_ordenST.index') }}" class="btn-usar">Usar</a>
+            </div>
+        </div>
+        <!-- Tarjeta 2: Comodato -->
+        <div class="card plantilla-card">
+            <div class="card-header">
+                <span class="card-icon"><i class="fas fa-file-contract"></i></span>
+                <span class="card-title">Contrato de Comodato</span>
+            </div>
+            <div class="card-body">
+                <p class="card-desc">Plantilla para la creación y firma de contratos de comodato para préstamo de equipos.</p>
+            </div>
+            <div class="card-footer">
+                <button class="btn-ver">Ver</button>
+                <a href="{{ url_for('firmas.comodato.comodato') }}" class="btn-usar">Usar</a>
+            </div>
+        </div>
+        <!-- Tarjeta 3: Ejemplo genérico -->
+        <div class="card plantilla-card">
+            <div class="card-header">
+                <span class="card-icon"><i class="fas fa-file-alt"></i></span>
+                <span class="card-title">Plantilla 3</span>
+            </div>
+            <div class="card-body">
+                <p class="card-desc">Descripción breve de la plantilla de firma electrónica número 3.</p>
+            </div>
+            <div class="card-footer">
+                <button class="btn-ver">Ver</button>
+                <button class="btn-usar">Usar</button>
+            </div>
+        </div>
+        <!-- Puedes agregar más tarjetas independientes aquí -->
+         <div class="card plantilla-card">
+            <div class="card-header">
+                <span class="card-icon"><i class="fas fa-file-alt"></i></span>
+                <span class="card-title">Formulario de Mandato</span>
+            </div>
+            <div class="card-body">
+                <p class="card-desc">Descripción breve de la plantilla de firma electrónica número 3.</p>
+            </div>
+            <div class="card-footer">
+                <button class="btn-ver">Ver</button>
+                <a href="{{ url_for('firmas.mandato.mandato') }}" class="btn-usar">Usar</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block extra_js %}
+    <script src="{{ url_for('firmas.static', filename='js/plantilla_firmas.js') }}"></script>
+{% endblock %}

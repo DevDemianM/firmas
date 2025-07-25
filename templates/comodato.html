@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contrato de Comodato</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <!-- fonts style -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700|Roboto:400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Custom styles for this template -->
+    <link href="{{ url_for('firmas.static', filename='css/formulario.css') }}" rel="stylesheet" />
+
+    <!-- Navbar -->
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('firmas.static', filename='css/base_firmas.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    {% block extra_head %}{% endblock %}
+
+</head>
+<div class="hero_area">
+    <header class="header_section">
+        <div class="container-fluid">
+            <nav class="navbar navbar-expand-lg custom_nav-container">
+                <a class="navbar-brand" href="/home">
+                    <span>Micelu.co</span>
+                </a>
+                <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mx-auto text-center">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/firmas/plantillas">Plantillas de Firmas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('firmas.plantillas_ordenST.listar_ordenes') }}">Órdenes ST</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/firmas/garantias">Garantías</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/firmas/comodato">Comodato</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/logout">Cerrar Sesión</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+</div>
+
+<body>
+    <!-- Formulario de entrada de datos -->
+    <div id="alertContainer"></div>
+
+    <div class="formulario-comodato">
+        <div class="form-header">
+            <h1>Formulario Comodato</h1>
+            <p>Complete el formulario para continuar</p>
+        </div>
+        <div class="form-content">
+            <form id="comodatoForm">
+                <div class="form-section">
+                    <div class="section-title">
+                        <i class="fas fa-user icon"></i>
+                        Información del Comodatario
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="nombreCompleto">Nombre Completo <span class="required">*</span></label>
+                            <input type="text" id="nombreCompleto" name="nombreCompleto" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cedula">Cédula de Ciudadanía <span class="required">*</span></label>
+                            <input type="text" id="cedula" name="cedula" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="direccion">Dirección <span class="required">*</span></label>
+                            <input type="text" id="direccion" name="direccion" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="telefono">Teléfono/Celular <span class="required">*</span></label>
+                            <input type="tel" id="telefono" name="telefono" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="ciudad">Ciudad <span class="required">*</span></label>
+                            <input type="text" id="ciudad" name="ciudad" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-section">
+                    <div class="section-title">
+                        <i class="fas fa-file-contract icon"></i>
+                        Detalles del Contrato
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="numeroContrato">Número de Contrato</label>
+                            <input type="text" id="numeroContrato" name="numeroContrato" placeholder="1302" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="duracionDias">Duración (días) <span class="required">*</span></label>
+                            <input type="number" id="duracionDias" name="duracionDias" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="diasDevolucion">Días para devolución tras solicitud</label>
+                            <input type="number" id="diasDevolucion" name="diasDevolucion" placeholder="5">
+                        </div>
+                        <div class="form-group">
+                            <label for="representanteLegal">Representante</label>
+                            <input type="text" id="representanteLegal" name="representanteLegal">
+                        </div>
+                        <div class="form-group">
+                            <label for="descripcionBienes">Producto <span class="required">*</span></label>
+                            <input type="text" id="descripcionBienes" name="descripcionBienes" required
+                                placeholder="Ingrese nombre del producto">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-section">
+                    <div class="section-title">
+                        <i class="fas fa-dollar-sign icon"></i>
+                        Información Económica
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="valorBienes">Valor de el producto <span class="required">*</span></label>
+                            <input type="text" id="valorBienes" name="valorBienes" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="porcentajePenalizacion">Valor de penalización</label>
+                            <input type="text" id="porcentajePenalizacion" name="porcentajePenalizacion">
+                        </div>
+                    </div>
+                    <div class="documents-section">
+                        <div class="documents-header">
+                            <h3 class="documents-title"><i class="fas fa-folder-open"></i> Documentos y Fotos</h3>
+                            <div class="upload-actions">
+                                <button type="button" class="upload-btn camera" onclick="openDocumentCamera()">
+                                    <i class="fas fa-camera"></i> Tomar Foto
+                                </button>
+                                <button type="button" class="upload-btn file"
+                                    onclick="document.getElementById('fileInput').click()">
+                                    <i class="fas fa-upload"></i> Subir Archivo
+                                </button>
+                                <input type="file" id="fileInput" multiple accept="image/*" style="display: none;"
+                                    onchange="handleFileUpload(event)">
+                            </div>
+                        </div>
+
+                        <div id="documentsGrid" class="documents-grid">
+                            <!-- Aquí se mostrarán los documentos adjuntos -->
+                        </div>
+
+                        <div class="documents-counter">
+                            <span id="documentsCounter">0 documentos adjuntos</span>
+                        </div>
+                    </div>
+
+                    <!-- Modal de cámara -->
+                    <div id="cameraModal" class="camera-modal">
+                        <div class="camera-container">
+                            <h3><i class="fas fa-camera"></i> Capturar Documento</h3>
+                            <div class="camera-preview">
+                                <video id="cameraVideo" class="camera-video" autoplay playsinline></video>
+                                <canvas id="captureCanvas" class="hidden"></canvas>
+                            </div>
+                            <div class="camera-controls">
+                                <button class="camera-btn capture" type="button" onclick="captureDocument()">
+                                    <i class="fas fa-camera"></i> Capturar
+                                </button>
+                                <button class="camera-btn switch" type="button" onclick="switchCamera()">
+                                    <i class="fas fa-sync-alt"></i> Cambiar Cámara
+                                </button>
+                                <button class="camera-btn close" type="button" onclick="closeDocumentCamera()">
+                                    <i class="fas fa-times"></i> Cerrar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-section">
+                    <div class="section-title1">
+                        <i class="fas fa-signature icon"></i>
+                        Firma del Comodatario
+                    </div>
+                    <div style="display: flex; flex-direction: column; align-items: center;">
+                        <button type="button" class="btn-primary" onclick="abrirModalFirma()">Firmar</button>
+                        <input type="hidden" id="firmaBase64" name="firmaBase64">
+                        <div id="firmaPreview" style="margin-top:10px;"></div>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button type="submit" class="btn-primary">Generar Contrato</button>
+                    <button type="button" class="btn btn-primary" id="abrirModalEntrega">
+                        Agregar Entrega de Producto
+                    </button>
+                    <button type="button" class="btn-success" id="registrarFirmasBtn" onclick="abrirModalConfirmar()">
+                        <i class="fas fa-save"></i> Registrar Firmas
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- El modal debe ir aquí, FUERA del form -->
+    <div class="modal fade" id="entregaProductoModal" tabindex="-1" aria-labelledby="entregaProductoModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="entregaProductoModalLabel">Entrega de Producto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    {% include 'entregaproduct.html' %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal de Firma -->
+    <div id="modalFirma"
+        style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.4); z-index:9999; align-items:center; justify-content:center;">
+        <div
+            style="background:#fff; padding:24px; border-radius:10px; box-shadow:0 4px 18px rgba(0,0,0,0.15); display:flex; flex-direction:column; align-items:center; min-width:320px;">
+            <h3 style="margin-bottom:12px;">Firma del Comodatario</h3>
+            <canvas id="firmaCanvas" width="350" height="120"
+                style="border:1.5px solid #336699; border-radius:8px; background:#fafcff;"></canvas>
+            <div style="margin-top:10px;">
+                <button type="button" class="btn-secondary" onclick="limpiarFirma()">Limpiar</button>
+                <button type="button" class="btn-primary" onclick="guardarFirma()">Guardar Firma</button>
+                <button type="button" class="btn-secondary" onclick="cerrarModalFirma()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contrato generado -->
+    <div class="comodato-container" id="contratoGenerado">
+        <div class="header">
+            <div class="logo-section">
+                <div class="logo-box">
+                    <img src="{{ url_for('firmas.static', filename='images/logo.png') }}" alt="Micelu.co Logo">
+                </div>
+                <div class="company-info">
+                    <strong>Micelu.co</strong><br>
+                    Venta y reparación de celulares<br>
+                    <i class="fas fa-phone"></i> 305 333 3336<br>
+                    <i class="fas fa-envelope"></i> miceluace@gmail.com
+                </div>
+            </div>
+
+            <div class="title-box">
+                <div class="title">CONTRATO DE COMODATO</div>
+                <div class="subtitle">Ciudad</div>
+            </div>
+
+            <div class="number-section">
+                <div class="number-box">
+                    N° <input type="text" class="input-field" placeholder="1302"
+                        style="border:none; background:transparent; color:#4A90E2; font-weight:600;">
+                </div>
+                <div class="date-row">
+                    <div class="date-box" id="day">D</div>
+                    <div class="date-box" id="month">M</div>
+                    <div class="date-box" id="year">A</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="paragraph">
+                Entre los suscritos a saber: por una parte <strong>MICELU.CO S.A.S</strong>, sociedad legalmente
+                constituida e identificada con NIT 901530467-8, quien para los efectos del presente contrato se denomina
+                <strong>COMODANTE</strong>, y por la otra <input type="text" class="input-field" placeholder="NOMBRE">,
+                mayor de edad, identificado con cédula de ciudadanía No. <input type="text" class="input-field"
+                    placeholder="CEDULA">, actuando en representación propia, quien en adelante se denominará el
+                <strong>COMODATARIO</strong>. Hemos convenido celebrar un contrato de comodato que se regirá por las
+                disposiciones legales aplicables a la materia, y en especial por las siguientes cláusulas:
+            </div>
+
+            <div class="paragraph">
+                <div class="section-title">PRIMERA. OBJETO:</div>
+                El <strong>COMODANTE</strong> entrega al <strong>COMODATARIO</strong> y éste recibe, a título de
+                comodato o préstamo de uso, los bienes que se describen a continuación:
+                <input class="input-field" placeholder="Describa aquí los bienes entregados en comodato">
+            </div>
+
+            <div class="paragraph">
+                <div class="section-title">PARÁGRAFO:</div>
+                Los bienes descritos son de propiedad del <strong>COMODANTE</strong> y el <strong>COMODATARIO</strong>
+                debe restituir el mismo equipo cierto y específico entregado.
+            </div>
+
+            <div class="paragraph">
+                <div class="section-title">SEGUNDA. USO PERMITIDO:</div>
+                El <strong>COMODATARIO</strong> utilizará el bien entregado para <input type="text" class="input-field"
+                    placeholder="NOMBRE CLIENTE"> únicamente.
+            </div>
+
+            <div class="paragraph">
+                <div class="section-title">TERCERA. OBLIGACIONES DEL COMODATARIO:</div>
+                Constituyen las obligaciones especiales de <strong>EL COMODATARIO</strong> las descritas en el artículo
+                2203 del Código Civil entre otras, las de cuidar y mantener el bien recibido en comodato, respondiendo
+                por todo daño o deterioro que sufra, salvo los que se deriven del uso autorizado; a) pagar cualquier
+                clase de impuesto o contribución especial o de género a partir del momento en que se suscribe este
+                documento; b) responder por los daños que el bien en comodato pueda causar a terceros; c) asegurar el
+                bien objeto de este comodato con póliza contra riesgos como robo, destrucción, incendio, y demás que
+                puedan afectar su normal funcionamiento; d) pagar gastos extraordinarios (espacial) y todas las demás
+                obligaciones propias del cuidado que debe tener el <strong>COMODATARIO</strong>; restituir el bien al
+                <strong>COMODANTE</strong> a quien éste lo exija y finalmente; e) utilizar el bien comodato, sólo
+                autorizado por el <strong>COMODANTE</strong> hasta con aviso.
+            </div>
+
+            <div class="paragraph">
+                <div class="section-title">CUARTA. DURACIÓN Y PERFECCIONAMIENTO:</div>
+                Este Comodato tiene una vigencia de <input type="text" class="input-field input-duracion"
+                    placeholder="DÍAS"> días
+                contados a partir de su firma, fecha en la cual también se hace entrega material del bien objeto de este
+                Comodato.
+            </div>
+
+            <div class="paragraph">
+                <div class="section-title">QUINTA:</div>
+                El <strong>COMODANTE</strong> podrá solicitar la restitución del bien entregado en comodato en cualquier
+                momento. El <strong>COMODATARIO</strong> dispondrá en ese caso de un plazo de <input type="text"
+                    class="input-field input-duracion" placeholder="5 DÍAS"> días para proceder de conformidad con la
+                solicitud de
+                <strong>EL COMODANTE</strong>.
+            </div>
+
+            <div class="paragraph">
+                <div class="section-title">SEXTA. VALOR DE LOS BIENES:</div>
+                A pesar de ser el Comodato un préstamo gratuito, entre <strong>COMODANTE</strong> y
+                <strong>COMODATARIO</strong> se acuerda un valor del bien en <input type="text"
+                    class="input-field input-valor-bienes" id="contratoValorBienes" placeholder="VALOR"> pesos en caso
+                de que, por alguna razón, el
+                <strong>COMODATARIO</strong> esté en
+                la obligación de pagar al <strong>COMODANTE</strong> el valor del bien.
+            </div>
+
+            <div class="paragraph">
+                <div class="section-title">SÉPTIMA. ESTADO DE LOS BIENES:</div>
+                En este momento, en el que se firma este acto y se entrega materialmente el bien. El
+                <strong>COMODATARIO</strong> manifiesta que se encuentra en perfecto estado para su uso, al igual que no
+                tiene cargas fiscales. (En caso contrario, detallar las falencias o daños que presenta el bien objeto de
+                este comodato).
+            </div>
+
+            <div class="paragraph">
+                <div class="section-title">OCTAVA. INDEMNIZACIÓN POR INCUMPLIMIENTO:</div>
+                El incumplimiento por parte del <strong>COMODATARIO</strong> de alguna u algunas de las obligaciones
+                derivadas del presente contrato, especialmente la no restitución de los bienes dará derecho a <strong>EL
+                    COMODANTE</strong> para exigir inmediatamente, a título de pena, una suma de dinero equivalente a
+                <input type="text" class="input-field input-porcentaje" placeholder="VALOR">% del valor del bien, sin
+                que este pago lo
+                exima de la obligación de pagar el valor del bien en caso de pérdida total o los valores
+                correspondientes a la reparación del bien, para ponerla nuevamente en el estado que se encontraba cuando
+                se le entregó.
+            </div>
+
+            <div class="paragraph">
+                <div class="section-title">NOVENA. MÉRITO EJECUTIVO:</div>
+                Las partes contratantes reconocen el presente documento presta mérito ejecutivo para la exigencia
+                judicial del cumplimiento de las obligaciones de dar y hacer en él contenidas.
+            </div>
+
+            <div class="date-location">
+                En <span id="ciudadFechaDisplay">Ciudad</span>, a los <span id="diaActual">día</span> días del mes de
+                <span id="mesActual">mes</span> de <span id="añoActual">año</span>.
+            </div>
+        </div>
+
+        <div class="signature-section">
+            <div class="signature-box">
+                <div class="signature-title">EL COMODATARIO</div>
+                <div class="signature-field">
+                    <label>IDENTIFICACIÓN:</label>
+                    <span id="cedulaContrato"></span>
+                </div>
+                <div class="signature-field">
+                    <label>NOMBRE:</label>
+                    <span id="nombreContrato"></span>
+                </div>
+                <div class="signature-field">
+                    <label>DIRECCIÓN:</label>
+                    <input type="text" class="input-field">
+                </div>
+                <div class="signature-field">
+                    <label>CELULAR:</label>
+                    <input type="text" class="input-field">
+                </div>
+                <div class="signature-area">
+                    <img id="firmaComodatarioImg"
+                        style="max-width:200px; border:1px solid #ccc; border-radius:6px; display:none;">
+                </div>
+            </div>
+
+            <div class="signature-box">
+                <div class="signature-title">EL COMODANTE</div>
+                <div class="signature-field">
+                    <label>Micelu.co S.A.S</label>
+                    <div>NIT 901530467-8</div>
+                    <div>Carrera 43 A No. 30-25 local 1455</div>
+                </div>
+                <div class="signature-field">
+                    <label>REPRESENTANTE LEGAL:</label>
+                    <input type="text" class="input-field" id="contratoRepresentanteLegal">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="contract-actions">
+            <button class="btn-secondary" onclick="editContract()"><i class="fas fa-edit"></i> Editar Datos</button>
+            <button class="btn-primary" onclick="saveContractAsDocument()"><i class="fas fa-save"></i> Guardar
+                Contrato</button>
+        </div>
+    </div>
+    <!-- Modal de Confirmación - Agregar antes del cierre del body -->
+    <div id="confirmModal" class="confirm-modal">
+        <div class="confirm-content">
+            <i class="fas fa-question-circle confirm-icon"></i>
+            <h3 class="confirm-title">Confirmar Registro</h3>
+            <p class="confirm-message">¿Está seguro que desea registrar la información del contrato de comodato en la
+                base de datos?</p>
+            <div class="confirm-buttons">
+                <button class="btn-confirm yes" onclick="confirmarRegistro()">
+                    <i class="fas fa-check"></i> Sí, Registrar
+                </button>
+                <button class="btn-confirm no" onclick="cerrarModalConfirmar()">
+                    <i class="fas fa-times"></i> Cancelar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay - Agregar después del alertContainer -->
+    <div id="loadingOverlay" class="loading">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <p>Registrando información...</p>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/signature_pad/1.5.3/signature_pad.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('firmas.static', filename='js/comodato.js') }}"></script>
+    <script src="{{ url_for('firmas.static', filename='js/entregaproduct.js') }}"></script>
+</body>
+
+</html>

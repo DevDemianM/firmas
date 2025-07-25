@@ -1,0 +1,392 @@
+{% extends 'base_firmas.html' %}
+{% block title %}Orden de Servicio Técnico{% endblock %}
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ url_for('firmas.static', filename='css/plantillaOrdenST.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="documento-id" content="{{ documento.id if documento else '' }}">
+    <meta name="numero-orden" content="{{ numero_orden if numero_orden else '' }}">
+{% endblock %}
+
+{% block content %}
+<div class="orden-st-container">
+    <!-- Encabezado principal -->
+    <div class="orden-header">
+        <div class="logo-section">
+            <img src="{{ url_for('firmas.static', filename='img/logoMicelu.png') }}" alt="Micelu.co" class="logo">
+            <div class="logo-text">
+                <div class="company-name">Micelu.co</div>
+                <div class="company-desc">Venta de celulares<br>Reparaciones de equipos a nivel de software</div>
+            </div>
+        </div>
+        
+        <div class="orden-title">
+            <div class="title-text">ORDEN DE SERVICIO TÉCNICO N°</div>
+            <div class="orden-number">{{ numero_orden if numero_orden else '3775' }}</div>
+        </div>
+    </div>
+
+    <!-- Información de contacto -->
+    <div class="contact-info">
+        <div class="contact-details">
+            (57)313 333 3330 | 3113668900<br>
+            serviciotecnico@micelu.co
+        </div>
+        <div class="date-section">
+            <table class="date-table">
+                <tr>
+                    <td class="date-label">FECHA</td>
+                    <td class="date-header">DIA</td>
+                    <td class="date-header">MES</td>
+                    <td class="date-header">AÑO</td>
+                </tr>
+                <tr>
+                    <td class="date-label">Ingreso</td>
+                    <td class="date-value">
+                        {% if orden and orden.get('fecha_creacion') %}
+                            {{ orden.fecha_creacion.split('-')[2].split(' ')[0] if orden.fecha_creacion else '' }}
+                        {% elif now %}
+                            {{ now.day }}
+                        {% endif %}
+                    </td>
+                    <td class="date-value">
+                        {% if orden and orden.get('fecha_creacion') %}
+                            {{ orden.fecha_creacion.split('-')[1] if orden.fecha_creacion else '' }}
+                        {% elif now %}
+                            {{ now.month }}
+                        {% endif %}
+                    </td>
+                    <td class="date-value">
+                        {% if orden and orden.get('fecha_creacion') %}
+                            {{ orden.fecha_creacion.split('-')[0] if orden.fecha_creacion else '' }}
+                        {% elif now %}
+                            {{ now.year }}
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="date-label">Retiro</td>
+                    <td class="date-value"></td>
+                    <td class="date-value"></td>
+                    <td class="date-value"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- Ubicación -->
+    <div class="location-section">
+        <div class="location-group">
+            <div class="location-item">
+                <div class="radio-circle {% if orden and (orden.sede == 'Medellín' or orden.get('sede') == 'Medellín') %}filled{% endif %}"></div>
+                <span>Medellín</span>
+            </div>
+            <div class="location-item">
+                <div class="radio-circle {% if orden and (orden.sede == 'Bogotá' or orden.get('sede') == 'Bogotá') %}filled{% endif %}"></div>
+                <span>Bogotá</span>
+            </div>
+        </div>
+        <div class="location-group">
+            <div class="location-item">
+                <span>Calle 50 Cra 45A #41</span>
+            </div>
+            <div class="location-item">
+                <span>Calle 35 Cra 35A #45</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabla principal de datos -->
+    <table class="data-table">
+        <!-- Responsable -->
+        <tr>
+            <td class="field-label">Responsable</td>
+            <td class="field-value" colspan="2">
+                {% if orden %}
+                    {{ orden.responsable if orden.responsable else orden.get('responsable', '') }}
+                {% endif %}
+            </td>
+        </tr>
+
+        <!-- Datos del Cliente -->
+        <tr>
+            <td class="section-header" colspan="3">Datos del cliente</td>
+        </tr>
+        <tr>
+            <td class="field-label">Nombre Cliente</td>
+            <td class="field-value" colspan="2">
+                {% if cliente %}
+                    {{ cliente.nombre if cliente.nombre else '' }}
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td class="field-label">Identificación</td>
+            <td class="field-value" colspan="2">
+                {% if cliente %}
+                    {{ cliente.tipo_documento if cliente.tipo_documento else '' }} {{ cliente.nit if cliente.nit else '' }}
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td class="field-label">Correo</td>
+            <td class="field-value" colspan="2">
+                {% if cliente %}
+                    {{ cliente.correo_electronico if cliente.correo_electronico else '' }}
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td class="field-label">Teléfono</td>
+            <td class="field-value" colspan="2">
+                {% if cliente %}
+                    {{ cliente.telefono if cliente.telefono else '' }}
+                {% endif %}
+            </td>
+        </tr>
+
+        <!-- Datos del Equipo -->
+        <tr>
+            <td class="section-header" colspan="3">Datos del equipo</td>
+        </tr>
+        <tr>
+            <td class="field-label">Marca</td>
+            <td class="field-value" colspan="2">
+                {% if orden %}
+                    {{ orden.marca if orden.marca else orden.get('marca', '') }}
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td class="field-label">IMEI</td>
+            <td class="field-value" colspan="2">
+                {% if orden %}
+                    {{ orden.imei if orden.imei else orden.get('imei', '') }}
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td class="field-label">Modelo</td>
+            <td class="field-value" colspan="2">
+                {% if orden %}
+                    {{ orden.dispositivo if orden.dispositivo else orden.get('dispositivo', '') }}
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td class="field-label">Problema reportado</td>
+            <td class="field-value" colspan="2">
+                {% if orden %}
+                    {{ orden.problema if orden.problema else orden.get('problema', '') }}
+                {% endif %}
+            </td>
+        </tr>
+
+        <!-- Estados del equipo -->
+        <tr>
+            <td class="field-label">Prende</td>
+            <td class="field-value" colspan="2">
+                <div class="checkbox-group">
+                    <span class="checkbox-item">
+                        <div class="checkbox {% if orden and (orden.prende or orden.get('prende')) %}checked{% endif %}"></div>
+                        SI
+                    </span>
+                    <span class="checkbox-item">
+                        <div class="checkbox {% if orden and not (orden.prende or orden.get('prende')) %}checked{% endif %}"></div>
+                        NO
+                    </span>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="field-label">Batería</td>
+            <td class="field-value" colspan="2">
+                <div class="checkbox-group">
+                    <span class="checkbox-item">
+                        <div class="checkbox {% if orden and (orden.bateria or orden.get('bateria')) %}checked{% endif %}"></div>
+                        SI
+                    </span>
+                    <span class="checkbox-item">
+                        <div class="checkbox {% if orden and not (orden.bateria or orden.get('bateria')) %}checked{% endif %}"></div>
+                        NO
+                    </span>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="field-label">Porcentaje batería</td>
+            <td class="field-value" colspan="2">
+                {% if orden %}
+                    {{ orden.porcentaje_bateria if orden.porcentaje_bateria else orden.get('porcentaje_bateria', '') }}{% if orden.porcentaje_bateria or orden.get('porcentaje_bateria') %}%{% endif %}
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td class="field-label">Código de seguridad</td>
+            <td class="field-value" colspan="2">
+                {% if orden %}
+                    {{ orden.codigo_seguridad if orden.codigo_seguridad else orden.get('codigo_seguridad', '') }}
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td class="field-label">Correo Vinculado</td>
+            <td class="field-value" colspan="2">
+                {% if orden %}
+                    {{ orden.correo_vinculado if orden.correo_vinculado else orden.get('correo_vinculado', '') }}
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td class="field-label">Contraseña</td>
+            <td class="field-value" colspan="2">
+                {% if orden %}
+                    {{ orden.contraseña if orden.contraseña else orden.get('contraseña', '') }}
+                {% endif %}
+            </td>
+        </tr>
+
+        <!-- Patrón -->
+        <tr>
+            <td class="field-label">PATRÓN</td>
+            <td class="field-value" colspan="2">
+                <div class="patron-section">
+                    <div class="patron-grid" id="patron-display">
+                        <!-- El patrón se renderizará aquí con JavaScript -->
+                    </div>
+                </div>
+            </td>
+        </tr>
+
+        <!-- Diagnóstico -->
+        <tr>
+            <td class="section-header" colspan="3">Diagnóstico</td>
+        </tr>
+        <tr>
+            <td class="field-value diagnostic-field" colspan="3">
+                {% if orden %}
+                    {{ orden.diagnostico if orden.diagnostico else orden.get('diagnostico', '') }}
+                {% endif %}
+            </td>
+        </tr>
+
+        <!-- Valor Total -->
+        <tr>
+            <td class="section-header" colspan="3">Valor Total</td>
+        </tr>
+        <tr>
+            <td class="field-value" colspan="3" style="text-align: center; font-weight: bold; font-size: 16px;">
+                {% if orden and (orden.valor_reparacion or orden.get('valor_reparacion')) %}
+                    {% set valor = orden.valor_reparacion if orden.valor_reparacion else orden.get('valor_reparacion', 0) %}
+                    {% if valor %}
+                        ${{ "{:,.0f}".format(valor|float) }}
+                    {% else %}
+                        $0
+                    {% endif %}
+                {% else %}
+                    $0
+                {% endif %}
+            </td>
+        </tr>
+    </table>
+
+    <!-- Imágenes del equipo -->
+    {% if images and images|length > 0 %}
+    <div class="images-section">
+        <div class="section-header" style="background-color: var(--primary-blue); color: white; padding: 8px; text-align: center; font-weight: bold; margin-bottom: 10px;">
+            IMÁGENES DEL EQUIPO
+        </div>
+        <div class="images-grid">
+            {% for image in images %}
+            <div class="image-item">
+                <img src="{{ image.url if image.url else image }}" alt="Imagen del equipo" class="equipment-image">
+                <div class="image-caption">{{ image.name if image.name else 'Imagen del equipo' }}</div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Firma del cliente -->
+    {% if (cliente and cliente.firma and cliente.firma.firma_imagen) or (orden and orden.get('firma_base64')) %}
+    <div class="signature-section">
+        <div class="signature-container">
+            <div class="signature-box">
+                {% if cliente and cliente.firma and cliente.firma.firma_imagen %}
+                    <img src="{{ cliente.firma.firma_imagen }}" alt="Firma del cliente" class="signature-image">
+                {% elif orden and orden.get('firma_base64') %}
+                    <img src="{{ orden.firma_base64 }}" alt="Firma del cliente" class="signature-image">
+                {% endif %}
+            </div>
+            <div class="signature-line">Firma del Cliente</div>
+        </div>
+        
+        <div class="signature-container">
+            <div class="signature-box empty-signature"></div>
+            <div class="signature-line">Firma del Técnico</div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Línea de separación final -->
+    <div class="footer-line">
+        <span></span>
+    </div>
+</div>
+
+<!-- Botones de acción -->
+<div class="action-buttons">
+    <button class="action-btn print-btn" onclick="window.print()">
+        <i class="fas fa-print"></i> Imprimir
+    </button>
+    <button class="action-btn pdf-btn" onclick="generarPDF()">
+        <i class="fas fa-file-pdf"></i> PDF
+    </button>
+    <button class="action-btn cloud-btn" onclick="subirALaNube()">
+        <i class="fas fa-cloud-upload-alt"></i> Subir
+    </button>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script src="{{ url_for('firmas.static', filename='js/sweetalerts.js') }}"></script>
+<script src="{{ url_for('firmas.static', filename='js/simple_pattern_lock.js') }}"></script>
+<script src="{{ url_for('firmas.static', filename='js/plantilla_firmas.js') }}"></script>
+<script src="{{ url_for('firmas.static', filename='js/plantillaOrdenST.js') }}"></script>
+
+<script>
+// Renderizar patrón si existe
+document.addEventListener('DOMContentLoaded', function() {
+    const patronData = '{% if orden %}{{ orden.patron if orden.patron else orden.get("patron", "") }}{% endif %}';
+    if (patronData && patronData.trim() !== '') {
+        renderPatronGrid(patronData);
+    }
+});
+
+function renderPatronGrid(patronString) {
+    const patronDisplay = document.getElementById('patron-display');
+    if (!patronDisplay) return;
+    
+    // Crear grid 3x3
+    patronDisplay.innerHTML = '';
+    for (let i = 0; i < 9; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'patron-dot';
+        dot.dataset.index = i;
+        patronDisplay.appendChild(dot);
+    }
+    
+    // Activar puntos del patrón
+    if (patronString) {
+        const patronArray = patronString.split(',').map(p => parseInt(p.trim())).filter(p => !isNaN(p));
+        patronArray.forEach(index => {
+            const dot = patronDisplay.querySelector(`[data-index="${index}"]`);
+            if (dot) {
+                dot.classList.add('active');
+            }
+        });
+    }
+}
+</script>
+{% endblock %}

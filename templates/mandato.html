@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mandato</title>
+
+    <!-- TUS ESTILOS ORIGINALES (mantén todo igual) -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700|Roboto:400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="{{ url_for('firmas.static', filename='css/mandato.css') }}" rel="stylesheet" />
+
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('firmas.static', filename='css/base_firmas.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    {% block extra_head %}{% endblock %}
+</head>
+<div class="hero_area">
+        <header class="header_section">
+            <div class="container-fluid">
+                <nav class="navbar navbar-expand-lg custom_nav-container ">
+                    <a class="navbar-brand" href="/home">
+                        <span>Micelu.co</span>
+                    </a>
+                    <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mx-auto text-center">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/firmas/plantillas">Plantillas de Firmas</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url_for('firmas.plantillas_ordenST.listar_ordenes') }}">Órdenes ST</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/firmas/garantias">Garantías</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/firmas/comodato">Comodato</a>
+                            </li>
+                        </ul>
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/logout">Cerrar Sesión</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </header>
+    </div>
+<body>
+    <div class="mandato-container">
+        <div class="mandato-header">
+            <h1 class="mandato-title">CONTRATO DE MANDATO SIN REPRESENTACIÓN</h1>
+            <p class="mandato-subtitle">Venta de celulares - Recibimos el pago en forma de pago</p>
+        </div>
+
+        <div class="contract-info">
+            <div class="contract-number">N° 3046</div>
+            <div class="contract-date">
+                <span>Ciudad: </span>
+                <span style="border-bottom: 1px solid #ccc; padding: 0 10px;">D</span>
+                <span style="border-bottom: 1px solid #ccc; padding: 0 10px;">M</span>
+                <span style="border-bottom: 1px solid #ccc; padding: 0 10px;">A</span>
+            </div>
+        </div>
+
+        <form id="mandatoForm">
+            <!-- Información del Mandante -->
+            <div class="form-section">
+                <div class="section-header">
+                    <div class="section-icon">👤</div>
+                    <h2 class="section-title">Información del Mandante</h2>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label required">Nombre Completo</label>
+                        <input type="text" class="form-input" name="nombre_completo" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label required">Cédula de Ciudadanía</label>
+                        <input type="text" class="form-input" name="cedula" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label required">Dirección</label>
+                        <input type="text" class="form-input" name="direccion" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label required">Teléfono/Celular</label>
+                        <input type="tel" class="form-input" name="telefono" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label required">Ciudad</label>
+                        <input type="text" class="form-input" name="ciudad" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-input" name="email">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detalles del Contrato -->
+            <div class="form-section">
+                <div class="section-header">
+                    <div class="section-icon">📋</div>
+                    <h2 class="section-title">Detalles del Contrato</h2>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Número de Contrato</label>
+                        <input type="text" class="form-input" name="numero_contrato" value="3046" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label required">Duración (días)</label>
+                        <input type="number" class="form-input" name="duracion" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Días para devolución tras solicitud</label>
+                        <input type="number" class="form-input" name="dias_devolucion" value="5" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Representante Legal</label>
+                        <input type="text" class="form-input" name="representante">
+                    </div>
+                    <div class="form-group full-width">
+                        <label class="form-label required">Producto</label>
+                        <input type="text" class="form-input" name="producto" placeholder="Ingrese nombre del producto"
+                            required>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Información del Producto -->
+            <div class="form-section">
+                <div class="section-header">
+                    <div class="section-icon">💰</div>
+                    <h2 class="section-title">Información del Producto</h2>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label required">Marca</label>
+                        <input type="text" class="form-input" name="marca_producto" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label required">IMEI</label>
+                        <input type="text" class="form-input" name="imei" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label required">Valor del producto</label>
+                        <input type="number" class="form-input" name="valor_producto" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Valor de penalización</label>
+                        <input type="number" class="form-input" name="valor_penalizacion">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Información de las Partes -->
+            <div class="form-section">
+                <div class="section-header">
+                    <div class="section-icon">🏢</div>
+                    <h2 class="section-title">Información de las Partes</h2>
+                </div>
+                <div class="company-info">
+                    <div class="company-box">
+                        <h3 class="company-title">EL MANDANTE</h3>
+                        <div class="company-details">
+                            <div class="company-detail"><strong>Nombre:</strong> <span
+                                    id="mandante_nombre">_________________</span></div>
+                            <div class="company-detail"><strong>Identificación:</strong> <span
+                                    id="mandante_id">_________________</span></div>
+                            <div class="company-detail"><strong>Dirección:</strong> <span
+                                    id="mandante_direccion">_________________</span></div>
+                            <div class="company-detail"><strong>Celular:</strong> <span
+                                    id="mandante_celular">_________________</span></div>
+                        </div>
+                    </div>
+                    <div class="company-box">
+                        <h3 class="company-title">EL MANDATARIO</h3>
+                        <div class="company-details">
+                            <div class="company-detail"><strong>Empresa:</strong> Micelu.co S.A.S</div>
+                            <div class="company-detail"><strong>NIT:</strong> 901.530.467-8</div>
+                            <div class="company-detail"><strong>Dirección:</strong> Carrera 43A No. 30 25 local 1265
+                            </div>
+                            <div class="company-detail"><strong>Representante Legal:</strong> <span
+                                    id="representante_legal">_________________</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Firmas -->
+            <div class="signature-section">
+                <div class="section-header">
+                    <div class="section-icon">✍️</div>
+                    <h2 class="section-title">Firmas</h2>
+                </div>
+                <div class="signatures-container">
+                    <div class="signature-box">
+                        <h3 class="signature-title">FIRMA DEL MANDANTE</h3>
+                        <canvas id="mandanteCanvas" class="signature-canvas" width="300" height="150"></canvas>
+                        <div class="signature-controls">
+                            <button type="button" class="btn btn-clear"
+                                onclick="clearCanvas('mandanteCanvas')">Limpiar</button>
+                        </div>
+                    </div>
+                    <div class="signature-box">
+                        <h3 class="signature-title">FIRMA DEL MANDATARIO</h3>
+                        <canvas id="mandatarioCanvas" class="signature-canvas" width="300" height="150"></canvas>
+                        <div class="signature-controls">
+                            <button type="button" class="btn btn-clear"
+                                onclick="clearCanvas('mandatarioCanvas')">Limpiar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Generar Contrato de Mandato</button>
+        </form>
+    </div>
+
+    <!-- Modal -->
+    <div id="contractModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Contrato de Mandato Generado</h2>
+            </div>
+            <div class="modal-body">
+                <div id="contractPreview" class="contract-preview">
+                    <!-- El contrato se generará aquí -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-save" onclick="saveContract()">Guardar Contrato</button>
+                <button type="button" class="btn btn-close" onclick="closeModal()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('firmas.static', filename='js/mandato.js') }}"></script>
+</body>
+
+</html>
