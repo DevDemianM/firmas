@@ -222,37 +222,6 @@ El sistema incluye modelos para diferentes tipos de documentos:
 - **Sanitización de Inputs**: Protección contra ataques
 - **Protección CSRF**: Seguridad adicional
 
-## 🤝 Contribuir
 
-¡Las contribuciones son bienvenidas! Para contribuir:
-
-1. Haz un fork del proyecto
-2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abre un Pull Request
-
-### Guías de Contribución
-
-- Sigue las convenciones de código existentes
-- Añade tests para nuevas funcionalidades
-- Actualiza la documentación según sea necesario
-- Asegúrate de que todos los tests pasen
-
-## 📝 Licencia
-
-Este proyecto está licenciado bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para más detalles.
-
-## 📞 Soporte
-
-Para soporte, preguntas o sugerencias:
-
-- Abre un [issue](https://github.com/tu-usuario/firmas/issues)
-- Contacta al equipo de desarrollo
-- Revisa la documentación técnica
-
----
-
-**Desarrollado con ❤️ para facilitar la gestión documental digital**
 
 
